@@ -6,9 +6,9 @@ function Recipes() {
 
   return (
     <>
-      { location.pathname === "/meals"
-        ? <Header title="Meals" perfil={ true } pesquisa={ true } />
-        : <Header title="Drinks" perfil={ true } pesquisa={ true } /> }
+      { location.pathname === '/meals'
+        ? <Header title="Meals" perfil pesquisa />
+        : <Header title="Drinks" perfil pesquisa /> }
       <h1>Receitas</h1>
     </>
   );
