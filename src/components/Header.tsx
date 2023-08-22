@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
 type HeaderProps = {
   title: string,
@@ -34,7 +35,7 @@ function Header(props: HeaderProps) {
             />
           </button>) }
       { search
-        && <input type="text" data-testid="search-input" /> }
+        && <SearchBar /> }
     </header>
   );
 }

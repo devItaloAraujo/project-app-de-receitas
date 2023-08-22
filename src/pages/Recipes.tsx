@@ -1,5 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
+import Meals from '../components/Meals';
+import Drinks from '../components/Drinks';
 
 function Recipes() {
   const location = useLocation();
@@ -9,7 +11,10 @@ function Recipes() {
       { location.pathname === '/meals'
         ? <Header title="Meals" perfil pesquisa />
         : <Header title="Drinks" perfil pesquisa /> }
-      <h1>Receitas</h1>
+      { location.pathname === '/meals'
+        && <Meals /> }
+      { location.pathname === '/drinks'
+        && <Drinks /> }
     </>
   );
 }
