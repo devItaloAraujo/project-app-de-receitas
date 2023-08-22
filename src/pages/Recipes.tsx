@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Meals from '../components/Meals';
 import Drinks from '../components/Drinks';
+import Footer from '../components/Footer';
 
 function Recipes() {
   const location = useLocation();
@@ -15,6 +16,7 @@ function Recipes() {
         && <Meals /> }
       { location.pathname === '/drinks'
         && <Drinks /> }
+      <Footer />
     </>
   );
 }
