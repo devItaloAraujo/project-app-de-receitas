@@ -31,11 +31,13 @@ describe('Testa a Tela de Login', () => {
 });
 
 describe('Testa o Header', () => {
+  const PROFILE_ICON = 'profile-top-btn';
+  const SEARCH_ICON = 'search-top-btn';
   test('Testa o Header do Meals', () => {
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
     const title = screen.getByRole('heading', { name: 'Meals' });
-    const profileIcon = screen.getByTestId('profile-top-btn');
-    const searchIcon = screen.getByTestId('search-top-btn');
+    const profileIcon = screen.getByTestId(PROFILE_ICON);
+    const searchIcon = screen.getByTestId(SEARCH_ICON);
 
     expect(title).toBeInTheDocument();
     expect(profileIcon).toBeInTheDocument();
@@ -44,8 +46,8 @@ describe('Testa o Header', () => {
   test('Testa o Header do Drinks', () => {
     renderWithRouter(<App />, { initialEntries: ['/drinks'] });
     const title = screen.getByRole('heading', { name: 'Drinks' });
-    const profileIcon = screen.getByTestId('profile-top-btn');
-    const searchIcon = screen.getByTestId('search-top-btn');
+    const profileIcon = screen.getByTestId(PROFILE_ICON);
+    const searchIcon = screen.getByTestId(SEARCH_ICON);
 
     expect(title).toBeInTheDocument();
     expect(profileIcon).toBeInTheDocument();
@@ -54,7 +56,7 @@ describe('Testa o Header', () => {
   test('Testa o Header do DoneRecipes', () => {
     renderWithRouter(<App />, { initialEntries: ['/done-recipes'] });
     const title = screen.getByRole('heading', { name: 'Done Recipes' });
-    const profileIcon = screen.getByTestId('profile-top-btn');
+    const profileIcon = screen.getByTestId(PROFILE_ICON);
     const buttons = screen.getAllByRole('button');
 
     expect(title).toBeInTheDocument();
@@ -64,7 +66,7 @@ describe('Testa o Header', () => {
   test('Testa o Header do FavoriteRecipes', () => {
     renderWithRouter(<App />, { initialEntries: ['/favorite-recipes'] });
     const title = screen.getByRole('heading', { name: 'Favorite Recipes' });
-    const profileIcon = screen.getByTestId('profile-top-btn');
+    const profileIcon = screen.getByTestId(PROFILE_ICON);
     const buttons = screen.getAllByRole('button');
 
     expect(title).toBeInTheDocument();
@@ -74,7 +76,7 @@ describe('Testa o Header', () => {
   test('Testa o Header do Profile', () => {
     renderWithRouter(<App />, { initialEntries: ['/profile'] });
     const title = screen.getByRole('heading', { name: 'Profile' });
-    const profileIcon = screen.getByTestId('profile-top-btn');
+    const profileIcon = screen.getByTestId(PROFILE_ICON);
     const buttons = screen.getAllByRole('button');
 
     expect(title).toBeInTheDocument();
@@ -83,7 +85,7 @@ describe('Testa o Header', () => {
   });
   test('Testa a barra de busca do header', async () => {
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
-    const searchIcon = screen.getByTestId('search-top-btn');
+    const searchIcon = screen.getByTestId(SEARCH_ICON);
 
     await userEvent.click(searchIcon);
     const searchInput = screen.getByTestId('search-input');
@@ -100,10 +102,9 @@ describe('Testa o Header', () => {
   });
   test('Testa se ao clicar no icone de perfil, navega ate a profile', async () => {
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
-    const profileIcon = screen.getByTestId('profile-top-btn');
+    const profileIcon = screen.getByTestId(PROFILE_ICON);
 
     await userEvent.click(profileIcon);
     expect(screen.getByText('Profile')).toBeInTheDocument();
-  })
+  });
 });
-
