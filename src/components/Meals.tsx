@@ -16,14 +16,16 @@ function Meals() {
   };
 
   useEffect(() => {
-    if (dataRecipes.meals === null) {
-      window.alert('Sorry, we haven\'t found any recipes for these filters.');
-    } else if (dataRecipes.meals) {
-      if (dataRecipes.meals.length === 1) {
-        navigate(`/meals/${dataRecipes.meals[0].idMeal}`);
-      } else {
-        setMeals(dataRecipes.meals);
-        console.log(meals);
+    if (dataRecipes !== undefined) {
+      if (dataRecipes.meals === null) {
+        window.alert('Sorry, we haven\'t found any recipes for these filters.');
+      } else if (dataRecipes.meals) {
+        if (dataRecipes.meals.length === 1) {
+          navigate(`/meals/${dataRecipes.meals[0].idMeal}`);
+        } else {
+          setMeals(dataRecipes.meals);
+          console.log(meals);
+        }
       }
     }
   }, [dataRecipes]);
