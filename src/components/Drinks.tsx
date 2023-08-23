@@ -15,13 +15,15 @@ function Drinks() {
   };
 
   useEffect(() => {
-    if (dataRecipes.drinks === null) {
-      window.alert('Sorry, we haven\'t found any recipes for these filters.');
-    } else if (dataRecipes.drinks) {
-      if (dataRecipes.drinks.length === 1) {
-        navigate(`/drinks/${dataRecipes.drinks[0].idDrink}`);
-      } else {
-        setDrinks(dataRecipes.drinks);
+    if (dataRecipes !== undefined) {
+      if (dataRecipes.drinks === null) {
+        window.alert('Sorry, we haven\'t found any recipes for these filters.');
+      } else if (dataRecipes.drinks) {
+        if (dataRecipes.drinks.length === 1) {
+          navigate(`/drinks/${dataRecipes.drinks[0].idDrink}`);
+        } else {
+          setDrinks(dataRecipes.drinks);
+        }
       }
     }
   }, [dataRecipes]);
