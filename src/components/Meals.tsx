@@ -28,7 +28,7 @@ function Meals() {
         }
       }
     }
-  }, [dataRecipes]);
+  }, [dataRecipes, meals, navigate]);
 
   const renderRecipes = getRecipesRender();
 

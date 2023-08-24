@@ -14,3 +14,10 @@ export type TypeDrinks = {
   idDrink: string;
   strDrinkThumb: string;
 };
+
+export type Details = {
+  photo: string,
+  title: string,
+  category: string,
+  instructions: string,
+};

@@ -26,7 +26,7 @@ function Drinks() {
         }
       }
     }
-  }, [dataRecipes]);
+  }, [dataRecipes, navigate]);
 
   const renderRecipes = getRecipesRender();
   return (
