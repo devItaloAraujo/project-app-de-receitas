@@ -8,7 +8,9 @@ let url: string;
 
 function RecipeInProgress() {
   const { id, type } = useParams();
-  const [details, setDetails] = useState<Details>({} as Details);
+  const [details, setDetails] = useState<Details>(
+    { ingredients: [] as Array<string> } as Details,
+  );
 
   if (type === 'meals') {
     url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -25,6 +27,10 @@ function RecipeInProgress() {
           title: mealsDrinks.strMeal || mealsDrinks.strDrink,
           category: mealsDrinks.strCategory,
           instructions: mealsDrinks.strInstructions,
+          ingredients: Object.entries(mealsDrinks)
+            .filter((entrie) => entrie[0].includes('strIngredient'))
+            .filter((entrie) => entrie[1] !== '' && entrie[1] !== null)
+            .map((entrie) => entrie[1]) as Array<string>,
         });
       });
   }, []);
@@ -42,6 +48,19 @@ function RecipeInProgress() {
       <span data-testid="recipe-category">{details.category}</span>
       <span data-testid="instructions">{details.instructions}</span>
       <button data-testid="finish-recipe-btn">Finish recipe</button>
+      <ul>
+        {
+          details.ingredients.map((ingredient, index) => (
+            <li key={ index }>
+              <label data-testid={ `${index}-ingredient-step` }>
+                <input type="checkbox" />
+                <span>&nbsp;</span>
+                <span>{ingredient}</span>
+              </label>
+            </li>
+          ))
+        }
+      </ul>
     </>
   );
 }

@@ -20,4 +20,5 @@ export type Details = {
   title: string,
   category: string,
   instructions: string,
+  ingredients: Array<string>,
 };
