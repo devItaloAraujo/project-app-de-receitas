@@ -14,3 +14,15 @@ export type TypeDrinks = {
   idDrink: string;
   strDrinkThumb: string;
 };
+
+export type RecipeType = {
+  id: string;
+  type: string;
+  nationality: string;
+  category: string;
+  alcoholicOrNot: string;
+  name:string;
+  image:string;
+  doneDate:string;
+  tags:string[];
+};
