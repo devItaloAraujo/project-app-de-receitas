@@ -28,7 +28,7 @@ function Meals() {
         }
       }
     }
-  }, [dataRecipes]);
+  }, [dataRecipes, meals, navigate]);
 
   const renderRecipes = getRecipesRender();
 
@@ -36,12 +36,14 @@ function Meals() {
     <>
       { renderRecipes.map((meal: TypeMeals, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ index }>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ meal.strMealThumb }
-            alt="Recipe meals"
-          />
-          <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
+          <button onClick={ () => { navigate(`/meals/${meal.idMeal}`); } }>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ meal.strMealThumb }
+              alt="Recipe meals"
+            />
+            <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
+          </button>
         </div>
       ))}
     </>

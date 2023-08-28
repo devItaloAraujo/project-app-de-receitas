@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import RecipesContext from '../context/RecipesContext';
 import { TypeDrinks } from '../types';
@@ -26,19 +26,21 @@ function Drinks() {
         }
       }
     }
-  }, [dataRecipes]);
+  }, [dataRecipes, navigate]);
 
   const renderRecipes = getRecipesRender();
   return (
     <>
       { renderRecipes.map((drink: TypeDrinks, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ index }>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ drink.strDrinkThumb }
-            alt="Recipe drinks"
-          />
-          <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
+          <Link to={ `/drinks/${drink.idDrink}` }>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ drink.strDrinkThumb }
+              alt="Recipe drinks"
+            />
+            <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
+          </Link>
         </div>
       )) }
     </>
