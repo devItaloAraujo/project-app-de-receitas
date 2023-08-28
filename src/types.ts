@@ -20,10 +20,22 @@ export type Details = {
   title: string,
   category: string,
   instructions: string,
+  nationality: string,
+  alcoholicOrNot: string,
   ingredients: Array<Ingredient>,
 };
 
 export type Ingredient = {
   label: string,
   checked: boolean,
+};
+
+export type FavoriteRecipe = {
+  id: string,
+  type: string,
+  nationality: string,
+  category: string,
+  alcoholicOrNot: string,
+  name: string,
+  image: string,
 };
