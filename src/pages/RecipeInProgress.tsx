@@ -19,21 +19,33 @@ function RecipeInProgress() {
   }
 
   useEffect(() => {
-    fetch(url).then((response) => response.json())
-      .then(({ meals, drinks }) => {
-        const mealsDrinks = (meals || drinks)[0];
-        setDetails({
-          photo: mealsDrinks.strMealThumb || mealsDrinks.strDrinkThumb,
-          title: mealsDrinks.strMeal || mealsDrinks.strDrink,
-          category: mealsDrinks.strCategory,
-          instructions: mealsDrinks.strInstructions,
-          ingredients: Object.entries(mealsDrinks)
-            .filter((entrie) => entrie[0].includes('strIngredient'))
-            .filter((entrie) => entrie[1] !== '' && entrie[1] !== null)
-            .map((entrie) => ({ label: entrie[1], checked: false })) as Array<Ingredient>,
+    const inProgressRecipes = localStorage.getItem('inProgressRecipes');
+
+    if (inProgressRecipes === null) {
+      fetch(url).then((response) => response.json())
+        .then(({ meals, drinks }) => {
+          const mealsDrinks = (meals || drinks)[0];
+          setDetails({
+            photo: mealsDrinks.strMealThumb || mealsDrinks.strDrinkThumb,
+            title: mealsDrinks.strMeal || mealsDrinks.strDrink,
+            category: mealsDrinks.strCategory,
+            instructions: mealsDrinks.strInstructions,
+            ingredients: Object.entries(mealsDrinks)
+              .filter((entrie) => entrie[0].includes('strIngredient'))
+              .filter((entrie) => entrie[1] !== '' && entrie[1] !== null)
+              .map((entrie) => (
+                { label: entrie[1], checked: false }
+              )) as Array<Ingredient>,
+          });
         });
-      });
+    } else {
+      setDetails(JSON.parse(inProgressRecipes));
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(details));
+  }, [details]);
 
   return (
     <>
@@ -58,6 +70,7 @@ function RecipeInProgress() {
               >
                 <input
                   type="checkbox"
+                  checked={ ingredient.checked }
                   onChange={ ({ target }) => {
                     details.ingredients[index].checked = target.checked;
                     setDetails({ ...details });
