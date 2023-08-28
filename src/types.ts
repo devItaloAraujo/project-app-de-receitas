@@ -20,5 +20,10 @@ export type Details = {
   title: string,
   category: string,
   instructions: string,
-  ingredients: Array<string>,
+  ingredients: Array<Ingredient>,
+};
+
+export type Ingredient = {
+  label: string,
+  checked: boolean,
 };

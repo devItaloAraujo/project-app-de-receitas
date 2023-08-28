@@ -2,14 +2,14 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import { Details } from '../types';
+import { Details, Ingredient } from '../types';
 
 let url: string;
 
 function RecipeInProgress() {
   const { id, type } = useParams();
   const [details, setDetails] = useState<Details>(
-    { ingredients: [] as Array<string> } as Details,
+    { ingredients: [] as Array<Ingredient> } as Details,
   );
 
   if (type === 'meals') {
@@ -30,7 +30,7 @@ function RecipeInProgress() {
           ingredients: Object.entries(mealsDrinks)
             .filter((entrie) => entrie[0].includes('strIngredient'))
             .filter((entrie) => entrie[1] !== '' && entrie[1] !== null)
-            .map((entrie) => entrie[1]) as Array<string>,
+            .map((entrie) => ({ label: entrie[1], checked: false })) as Array<Ingredient>,
         });
       });
   }, []);
@@ -47,20 +47,30 @@ function RecipeInProgress() {
       </button>
       <span data-testid="recipe-category">{details.category}</span>
       <span data-testid="instructions">{details.instructions}</span>
-      <button data-testid="finish-recipe-btn">Finish recipe</button>
       <ul>
         {
           details.ingredients.map((ingredient, index) => (
             <li key={ index }>
-              <label data-testid={ `${index}-ingredient-step` }>
-                <input type="checkbox" />
+              <label
+                data-testid={ `${index}-ingredient-step` }
+                style={ ingredient.checked
+                  ? { textDecoration: 'line-through solid rgb(0, 0, 0)' } : {} }
+              >
+                <input
+                  type="checkbox"
+                  onChange={ ({ target }) => {
+                    details.ingredients[index].checked = target.checked;
+                    setDetails({ ...details });
+                  } }
+                />
                 <span>&nbsp;</span>
-                <span>{ingredient}</span>
+                <span>{ingredient.label}</span>
               </label>
             </li>
           ))
         }
       </ul>
+      <button data-testid="finish-recipe-btn">Finish recipe</button>
     </>
   );
 }
