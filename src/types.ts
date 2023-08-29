@@ -15,7 +15,6 @@ export type TypeDrinks = {
   strDrinkThumb: string;
 };
 
-
 export type Details = {
   id: string,
   photo: string,
