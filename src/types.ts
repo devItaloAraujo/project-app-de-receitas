@@ -108,3 +108,25 @@ export type TypeDrinks = {
   strCreativeCommonsConfirmed: string;
   dateModified: string;
 };
+
+export type TypeDoneRecipes = {
+  id: string;
+  type: string;
+  nationality: string | null;
+  category: string | null;
+  alcoholicOrNot: string | null;
+  name: string;
+  image: string;
+  doneDate: string;
+  tags: string[] | null;
+}[];
+
+export type TypeFavoriteRecipes = {
+  id: string;
+  type: string;
+  nationality: string | null;
+  category: string | null;
+  alcoholicOrNot: string | null;
+  name: string;
+  image: string;
+}[];

@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Flicking from '@egjs/react-flicking';
-import { DataType, TypeMeals } from '../types';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
+import { DataType, TypeFavoriteRecipes, TypeMeals } from '../types';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ShareFavButton from './ShareFavButton';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 function DrinkDetail() {
   const params = useParams();
@@ -10,6 +15,11 @@ function DrinkDetail() {
   const navigate = useNavigate();
   const [recipeDetailData, setRecipeDetailData] = useState<DataType>({});
   const [meals, setMeals] = useState<TypeMeals[]>([]);
+  const [copyMessage, SetCopyMessage] = useState(false);
+  const {
+    valueStorage: favoriteRecipes,
+    setValue: setFavoriteRecipes,
+  } = useLocalStorage('favoriteRecipes', []);
 
   async function fetchRecipeById() {
     if (location.pathname.includes('/meals')) {
@@ -32,10 +42,8 @@ function DrinkDetail() {
     }
   }, [params.idDaReceita]);
 
-  console.log(recipeDetailData);
-
-  const recommendationType = location.pathname.includes('/meals') ? 'bebida' : 'comida';
-  const recommendationAPI = recommendationType === 'bebida'
+  const recommendationType = location.pathname.includes('/meals') ? 'drinks' : 'meals';
+  const recommendationAPI = recommendationType === 'drinks'
     ? 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
     : 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
@@ -45,13 +53,64 @@ function DrinkDetail() {
     setMeals(data.meals);
   }
 
-  console.log(meals);
-
   const renderRecomendations = meals.slice(0, 6);
-  console.log(renderRecomendations);
+
+  const handleClickShare = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      SetCopyMessage(true);
+      setTimeout(() => SetCopyMessage(false), 2000);
+    });
+  };
+
+  const handleClickFavoriteLocalStorage = () => {
+    if (recipeDetailData.drinks) {
+      const id = recipeDetailData.drinks[0].idDrink;
+      const isCurrentlyFavorited = favoriteRecipes.some(
+        (recipe: { id: string | undefined }) => recipe.id === id,
+      );
+      if (isCurrentlyFavorited) {
+        const updatedFavoriteRecipes = favoriteRecipes.filter(
+          (recipe: { id: string | undefined }) => recipe.id !== id,
+        );
+        setFavoriteRecipes(updatedFavoriteRecipes);
+      } else {
+        const newFavoriteRecipe: TypeFavoriteRecipes = [{
+          id: recipeDetailData.drinks[0].idDrink,
+          type: 'drink',
+          nationality: '',
+          category: recipeDetailData.drinks[0].strCategory,
+          alcoholicOrNot: recipeDetailData.drinks[0].strAlcoholic,
+          name: recipeDetailData.drinks[0].strDrink,
+          image: recipeDetailData.drinks[0].strDrinkThumb,
+        }];
+        setFavoriteRecipes([...favoriteRecipes, ...newFavoriteRecipe]);
+      }
+    }
+  };
+
+  const isFavorite = favoriteRecipes
+    .some((recipe: { id: string | undefined; }) => recipe.id === params.idDaReceita);
 
   return (
     <div>
+      <ShareFavButton
+        src={ shareIcon }
+        alt="share"
+        type="button"
+        data-testid="share-btn"
+        onClick={ handleClickShare }
+      />
+      <ShareFavButton
+        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+        alt="favorite"
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ handleClickFavoriteLocalStorage }
+      />
+      <div>
+        {copyMessage && <p>Link copied!</p>}
+      </div>
       { recipeDetailData.drinks?.map((drink) => (
         <div key={ drink.idDrink }>
           <img
@@ -121,7 +180,9 @@ function DrinkDetail() {
         data-testid="start-recipe-btn"
         onClick={ () => navigate(`${location.pathname}/in-progress`) }
       >
-        Start Recipe
+        { JSON.parse(localStorage.getItem('inProgressRecipes') as string) !== null
+          && JSON.parse(localStorage.getItem('inProgressRecipes') as string)
+            .drinks[`${params.idDaReceita}`] ? 'Continue Recipe' : ' Start Recipe' }
       </button>
     </div>
   );
