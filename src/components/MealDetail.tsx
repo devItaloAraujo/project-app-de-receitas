@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Flicking from '@egjs/react-flicking';
 import { DataType, TypeDrinks } from '../types';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function MealDetail() {
   const params = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const [recipeDetailData, setRecipeDetailData] = useState<DataType>({});
   const [drinks, setDrinks] = useState<TypeDrinks[]>([]);
 
@@ -132,6 +133,7 @@ function MealDetail() {
         className="btn btn-primary btn-lg fixed-bottom"
         type="button"
         data-testid="start-recipe-btn"
+        onClick={ () => navigate(`${location.pathname}/in-progress`) }
       >
         Start Recipe
       </button>
