@@ -153,7 +153,12 @@ function RecipeInProgress() {
           ))
         }
       </ul>
-      <button data-testid="finish-recipe-btn">Finish recipe</button>
+      <button
+        data-testid="finish-recipe-btn"
+        disabled={ !details.ingredients.every((ingredient) => ingredient.checked) }
+      >
+        Finish recipe
+      </button>
     </>
   );
 }
