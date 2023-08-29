@@ -9,7 +9,7 @@ type RecipesProviderProps = {
 
 function RecipesProvider({ children }: RecipesProviderProps) {
   const [dataRecipes, setDataRecipes] = useState<DataType>({});
-  const [mealsOrDrink, setMealsOrDrink] = useState('meals');
+  // const [mealsOrDrink, setMealsOrDrink] = useState('meals');
   const location = useLocation();
 
   async function searchEndPoint(radio: string, value: string) {
@@ -22,7 +22,7 @@ function RecipesProvider({ children }: RecipesProviderProps) {
       } else {
         API = `https://www.themealdb.com/api/json/v1/1/search.php?f=${value}`;
       }
-      setMealsOrDrink('meals');
+      // setMealsOrDrink('meals');
       fetchData(API);
     } else if (location.pathname === '/drinks') {
       let API = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${value}`;
@@ -33,7 +33,7 @@ function RecipesProvider({ children }: RecipesProviderProps) {
       } else {
         API = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${value}`;
       }
-      setMealsOrDrink('drinks');
+      // setMealsOrDrink('drinks');
       fetchData(API);
     }
   }
@@ -48,7 +48,7 @@ function RecipesProvider({ children }: RecipesProviderProps) {
 
   const context = {
     dataRecipes,
-    mealsOrDrink,
+    // mealsOrDrink,
     searchEndPoint,
   };
 
