@@ -46,7 +46,7 @@ function Drinks() {
         }
       }
     }
-  }, [dataRecipes]);
+  }, [dataRecipes, navigate]);
 
   // const categoryClick = async ({ target }: any) => {
   //   const valueClick = target.id;
