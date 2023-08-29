@@ -56,7 +56,7 @@ function DoneRecipes() {
         && (doneRecipes.map((recipe, index) => {
           if (recipe.type === 'meal') {
             return (
-              <div data-testid={ `${index}-recipe-card` } key={ index }>
+              <div data-testid={ `${index}-recipe-card` } key={ `${index}-recipe-card` }>
                 <Link to={ `/${recipe.type}s/${recipe.id}` }>
                   <img
                     style={ { width: '100px' } }
@@ -90,7 +90,7 @@ function DoneRecipes() {
                     .map((tag) => (
                       <span
                         data-testid={ `${index}-${tag}-horizontal-tag` }
-                        key={ index }
+                        key={ `${index}-${tag}-horizontal-tag` }
                       >
                         {tag}
                       </span>))}
@@ -99,7 +99,7 @@ function DoneRecipes() {
             );
           } if (recipe.type === 'drink') {
             return (
-              <div data-testid={ `${index}-recipe-card` } key={ index }>
+              <div data-testid={ `${index}-recipe-card` } key={ `${index}-recipe-card` }>
                 <Link to={ `/${recipe.type}s/${recipe.id}` }>
                   <img
                     style={ { width: '100px' } }
