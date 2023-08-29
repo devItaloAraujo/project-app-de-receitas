@@ -3,7 +3,7 @@ import { DataType } from '../types';
 
 type RecipeContextType = {
   dataRecipes: DataType;
-  mealsOrDrink: string;
+  // mealsOrDrink: string;
   searchEndPoint: (radio: string, value: string) => void;
   fetchRecipeById: (id: string) => void;
 };
