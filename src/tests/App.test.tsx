@@ -91,7 +91,7 @@ describe('Testa o Header', () => {
 
     expect(title).toBeInTheDocument();
     expect(profileIcon).toBeInTheDocument();
-    expect(buttons).toHaveLength(1);
+    expect(buttons).toHaveLength(4);
   });
   test('Testa o Header do FavoriteRecipes', () => {
     renderWithRouter(
