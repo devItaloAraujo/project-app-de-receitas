@@ -16,12 +16,14 @@ export type TypeDrinks = {
 };
 
 export type Details = {
+  id: string,
   photo: string,
   title: string,
   category: string,
   instructions: string,
   nationality: string,
   alcoholicOrNot: string,
+  tags: Array<string>,
   ingredients: Array<Ingredient>,
 };
 
@@ -38,4 +40,16 @@ export type FavoriteRecipe = {
   alcoholicOrNot: string,
   name: string,
   image: string,
+};
+
+export type DoneRecipe = {
+  id: string,
+  type: string,
+  nationality: string,
+  category: string,
+  alcoholicOrNot: string,
+  name: string,
+  image: string,
+  tags: Array<string>,
+  doneDate: string,
 };

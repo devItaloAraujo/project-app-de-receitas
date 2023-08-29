@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import { Details, FavoriteRecipe, Ingredient } from '../types';
+import { Details, DoneRecipe, FavoriteRecipe, Ingredient } from '../types';
 
 let apiUrl: string;
 
 function RecipeInProgress() {
   const { id, type } = useParams();
-  const [details, setDetails] = useState<Details>(
-    { ingredients: [] as Array<Ingredient> } as Details,
-  );
+  const [details, setDetails] = useState<Details>();
   const [isShareIconClicked, setIsShareIconClicked] = useState(false);
   const [isFavoriteRecipe, setIsFavoriteRecipe] = useState(false);
 
@@ -22,19 +20,27 @@ function RecipeInProgress() {
   }
 
   useEffect(() => {
-    const inProgressRecipes = localStorage.getItem('inProgressRecipes');
+    const inProgressRecipe = (
+      JSON.parse(localStorage.getItem('inProgressRecipes') || '[]') as Array<Details>)
+      .filter(
+        (currentInProgressRecipe) => currentInProgressRecipe.id === id,
+      )[0];
 
-    if (inProgressRecipes === null) {
+    if (inProgressRecipe) {
+      setDetails(inProgressRecipe);
+    } else {
       fetch(apiUrl).then((response) => response.json())
         .then(({ meals, drinks }) => {
           const mealsDrinks = (meals || drinks)[0];
           setDetails({
+            id: id || '',
             photo: mealsDrinks.strMealThumb || mealsDrinks.strDrinkThumb,
             title: mealsDrinks.strMeal || mealsDrinks.strDrink,
             category: mealsDrinks.strCategory,
             instructions: mealsDrinks.strInstructions,
             nationality: (mealsDrinks.strArea || ''),
             alcoholicOrNot: (mealsDrinks.strAlcoholic || ''),
+            tags: mealsDrinks.strTags ? mealsDrinks.strTags.split(',') : [],
             ingredients: Object.entries(mealsDrinks)
               .filter((entrie) => entrie[0].includes('strIngredient'))
               .filter((entrie) => entrie[1] !== '' && entrie[1] !== null)
@@ -43,21 +49,30 @@ function RecipeInProgress() {
               )) as Array<Ingredient>,
           });
         });
-    } else {
-      setDetails(JSON.parse(inProgressRecipes));
     }
-  }, []);
+  }, [id]);
 
   useEffect(() => {
-    localStorage.setItem('inProgressRecipes', JSON.stringify(details));
-    const favoriteRecipes = JSON.parse(
-      localStorage.getItem('favoriteRecipes') || '[]',
-    ) as Array<FavoriteRecipe>;
-    favoriteRecipes.forEach((favoriteRecipe) => {
-      if (favoriteRecipe.id === id) {
-        setIsFavoriteRecipe(true);
-      }
-    });
+    if (details) {
+      const inProgressRecipes = JSON.parse(
+        localStorage.getItem('inProgressRecipes') || '[]',
+      ) as Array<Details>;
+
+      localStorage.setItem('inProgressRecipes', JSON.stringify(
+        [
+          ...inProgressRecipes.filter((inProgressRecipe) => inProgressRecipe.id !== id),
+          details,
+        ],
+      ));
+      const favoriteRecipes = JSON.parse(
+        localStorage.getItem('favoriteRecipes') || '[]',
+      ) as Array<FavoriteRecipe>;
+      favoriteRecipes.forEach((favoriteRecipe) => {
+        if (favoriteRecipe.id === id) {
+          setIsFavoriteRecipe(true);
+        }
+      });
+    }
   }, [id, details]);
 
   const copyLink = () => {
@@ -74,10 +89,6 @@ function RecipeInProgress() {
     ) as Array<FavoriteRecipe>;
 
     if (isFavoriteRecipe) {
-      console.log(favoriteRecipes.filter((
-        currentFavoriteRecipe,
-      ) => currentFavoriteRecipe.id !== id));
-
       localStorage.setItem(
         'favoriteRecipes',
         JSON.stringify(
@@ -92,11 +103,11 @@ function RecipeInProgress() {
         JSON.stringify([...favoriteRecipes, {
           id,
           type: type?.substring(0, type.length - 1),
-          nationality: details.nationality,
-          category: details.category,
-          alcoholicOrNot: details.alcoholicOrNot,
-          name: details.title,
-          image: details.photo,
+          nationality: details?.nationality,
+          category: details?.category,
+          alcoholicOrNot: details?.alcoholicOrNot,
+          name: details?.title,
+          image: details?.photo,
         }]),
       );
     }
@@ -104,10 +115,31 @@ function RecipeInProgress() {
     setIsFavoriteRecipe(!isFavoriteRecipe);
   };
 
+  const finishRecipe = () => {
+    const doneRecipes = JSON.parse(
+      localStorage.getItem('doneRecipes') || '[]',
+    ) as Array<DoneRecipe>;
+
+    localStorage.setItem(
+      'doneRecipes',
+      JSON.stringify([...doneRecipes, {
+        id,
+        type: type?.substring(0, type.length - 1),
+        nationality: details?.nationality,
+        category: details?.category,
+        alcoholicOrNot: details?.alcoholicOrNot,
+        name: details?.title,
+        image: details?.photo,
+        tags: details?.tags,
+        doneDate: new Date().toISOString(),
+      }]),
+    );
+  };
+
   return (
     <>
-      <img src={ details.photo } alt={ details.title } data-testid="recipe-photo" />
-      <h2 data-testid="recipe-title">{details.title}</h2>
+      <img src={ details?.photo } alt={ details?.title } data-testid="recipe-photo" />
+      <h2 data-testid="recipe-title">{details?.title}</h2>
       <button data-testid="share-btn" onClick={ copyLink }>
         <img src={ shareIcon } alt="Botão de compartilhar" />
       </button>
@@ -127,11 +159,11 @@ function RecipeInProgress() {
             />
         }
       </button>
-      <span data-testid="recipe-category">{details.category}</span>
-      <span data-testid="instructions">{details.instructions}</span>
+      <span data-testid="recipe-category">{details?.category}</span>
+      <span data-testid="instructions">{details?.instructions}</span>
       <ul>
         {
-          details.ingredients.map((ingredient, index) => (
+          details?.ingredients.map((ingredient, index) => (
             <li key={ index }>
               <label
                 data-testid={ `${index}-ingredient-step` }
@@ -155,9 +187,17 @@ function RecipeInProgress() {
       </ul>
       <button
         data-testid="finish-recipe-btn"
-        disabled={ !details.ingredients.every((ingredient) => ingredient.checked) }
+        onClick={ finishRecipe }
+        disabled={ !details?.ingredients.every((ingredient) => ingredient.checked) }
       >
-        Finish recipe
+        <Link
+          to="/done-recipes"
+          aria-disabled={
+            !details?.ingredients.every((ingredient) => ingredient.checked)
+          }
+        >
+          Finish recipe
+        </Link>
       </button>
     </>
   );
