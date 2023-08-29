@@ -3,7 +3,9 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user') as string);
+  const { email } = JSON.parse(localStorage.getItem('user') as string) !== null
+   && JSON.parse(localStorage.getItem('user') as string);
+
   const navigate = useNavigate();
   const handleClear = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
