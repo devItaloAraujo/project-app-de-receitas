@@ -15,6 +15,7 @@ export type TypeDrinks = {
   strDrinkThumb: string;
 };
 
+
 export type Details = {
   id: string,
   photo: string,
@@ -52,4 +53,16 @@ export type DoneRecipe = {
   image: string,
   tags: Array<string>,
   doneDate: string,
+};
+
+export type RecipeType = {
+  id: string;
+  type: string;
+  nationality: string;
+  category: string;
+  alcoholicOrNot: string;
+  name:string;
+  image:string;
+  doneDate:string;
+  tags:string[];
 };

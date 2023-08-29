@@ -3,26 +3,41 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouter } from './renderWithRouter';
+import RecipesProvider from '../context/RecipesProvider';
+
+const EMAIL_TESTID = 'email-input';
+const PASSWORD_TESTID = 'password-input';
+const BUTTON_TESTID = 'login-submit-btn';
+const emailTest = 'test@test.com';
+const passwordTest = '1234567';
 
 describe('Testa a Tela de Login', () => {
   test('Testa se o button habilita após escrever o email e senha', async () => {
-    renderWithRouter(<App />);
-    const email = screen.getByTestId('email-input');
-    const password = screen.getByTestId('password-input');
-    const button = screen.getByTestId('login-submit-btn');
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+    );
+    const email = screen.getByTestId(EMAIL_TESTID);
+    const password = screen.getByTestId(PASSWORD_TESTID);
+    const button = screen.getByTestId(BUTTON_TESTID);
 
     expect(button).toBeDisabled();
 
-    await userEvent.type(email, 'test@test.com');
-    await userEvent.type(password, '1234567');
+    await userEvent.type(email, emailTest);
+    await userEvent.type(password, passwordTest);
     await userEvent.click(button);
     expect(screen.getByTestId('page-title')).toBeInTheDocument();
   });
   test('Testa se o button continua desabilitado ao escrever email e senha errado', async () => {
-    renderWithRouter(<App />);
-    const email = screen.getByTestId('email-input');
-    const password = screen.getByTestId('password-input');
-    const button = screen.getByTestId('login-submit-btn');
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+    );
+    const email = screen.getByTestId(EMAIL_TESTID);
+    const password = screen.getByTestId(PASSWORD_TESTID);
+    const button = screen.getByTestId(BUTTON_TESTID);
 
     await userEvent.type(email, 'test@test');
     await userEvent.type(password, '123456');
@@ -34,7 +49,12 @@ describe('Testa o Header', () => {
   const PROFILE_ICON = 'profile-top-btn';
   const SEARCH_ICON = 'search-top-btn';
   test('Testa o Header do Meals', () => {
-    renderWithRouter(<App />, { initialEntries: ['/meals'] });
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+      { initialEntries: ['/meals'] },
+    );
     const title = screen.getByRole('heading', { name: 'Meals' });
     const profileIcon = screen.getByTestId(PROFILE_ICON);
     const searchIcon = screen.getByTestId(SEARCH_ICON);
@@ -44,7 +64,12 @@ describe('Testa o Header', () => {
     expect(searchIcon).toBeInTheDocument();
   });
   test('Testa o Header do Drinks', () => {
-    renderWithRouter(<App />, { initialEntries: ['/drinks'] });
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+      { initialEntries: ['/drinks'] },
+    );
     const title = screen.getByRole('heading', { name: 'Drinks' });
     const profileIcon = screen.getByTestId(PROFILE_ICON);
     const searchIcon = screen.getByTestId(SEARCH_ICON);
@@ -54,7 +79,12 @@ describe('Testa o Header', () => {
     expect(searchIcon).toBeInTheDocument();
   });
   test('Testa o Header do DoneRecipes', () => {
-    renderWithRouter(<App />, { initialEntries: ['/done-recipes'] });
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+      { initialEntries: ['/done-recipes'] },
+    );
     const title = screen.getByRole('heading', { name: 'Done Recipes' });
     const profileIcon = screen.getByTestId(PROFILE_ICON);
     const buttons = screen.getAllByRole('button');
@@ -64,7 +94,12 @@ describe('Testa o Header', () => {
     expect(buttons).toHaveLength(1);
   });
   test('Testa o Header do FavoriteRecipes', () => {
-    renderWithRouter(<App />, { initialEntries: ['/favorite-recipes'] });
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+      { initialEntries: ['/favorite-recipes'] },
+    );
     const title = screen.getByRole('heading', { name: 'Favorite Recipes' });
     const profileIcon = screen.getByTestId(PROFILE_ICON);
     const buttons = screen.getAllByRole('button');
@@ -74,17 +109,27 @@ describe('Testa o Header', () => {
     expect(buttons).toHaveLength(1);
   });
   test('Testa o Header do Profile', () => {
-    renderWithRouter(<App />, { initialEntries: ['/profile'] });
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+      { initialEntries: ['/profile'] },
+    );
     const title = screen.getByRole('heading', { name: 'Profile' });
     const profileIcon = screen.getByTestId(PROFILE_ICON);
     const buttons = screen.getAllByRole('button');
 
     expect(title).toBeInTheDocument();
     expect(profileIcon).toBeInTheDocument();
-    expect(buttons).toHaveLength(1);
+    expect(buttons).toHaveLength(4);
   });
   test('Testa a barra de busca do header', async () => {
-    renderWithRouter(<App />, { initialEntries: ['/meals'] });
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+      { initialEntries: ['/meals'] },
+    );
     const searchIcon = screen.getByTestId(SEARCH_ICON);
 
     await userEvent.click(searchIcon);
@@ -101,10 +146,105 @@ describe('Testa o Header', () => {
     expect(buttonSearch).toBeInTheDocument();
   });
   test('Testa se ao clicar no icone de perfil, navega ate a profile', async () => {
-    renderWithRouter(<App />, { initialEntries: ['/meals'] });
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+      { initialEntries: ['/meals'] },
+    );
     const profileIcon = screen.getByTestId(PROFILE_ICON);
 
     await userEvent.click(profileIcon);
     expect(screen.getByText('Profile')).toBeInTheDocument();
+  });
+});
+
+describe('Testa a Tela de Perfil', () => {
+  const PROFILE_ICON = 'profile-top-btn';
+  test('Testa os elementos do profile', async () => {
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+    );
+    const email = screen.getByTestId(EMAIL_TESTID);
+    const password = screen.getByTestId(PASSWORD_TESTID);
+    const button = screen.getByTestId(BUTTON_TESTID);
+
+    await userEvent.type(email, emailTest);
+    await userEvent.type(password, passwordTest);
+    await userEvent.click(button);
+
+    const profileIcon = screen.getByTestId(PROFILE_ICON);
+    await userEvent.click(profileIcon);
+
+    const emailHeading = screen.getByRole('heading', { name: 'test@test.com' });
+    const buttonDone = screen.getByTestId('profile-done-btn');
+    const buttonFavorite = screen.getByTestId('profile-favorite-btn');
+    const logout = screen.getByTestId('profile-logout-btn');
+
+    expect(emailHeading).toBeInTheDocument();
+    expect(buttonDone).toBeInTheDocument();
+    expect(buttonFavorite).toBeInTheDocument();
+    expect(logout).toBeInTheDocument();
+  });
+  test('Testa o click do button Done', async () => {
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+    );
+    const email = screen.getByTestId(EMAIL_TESTID);
+    const password = screen.getByTestId(PASSWORD_TESTID);
+    const button = screen.getByTestId(BUTTON_TESTID);
+
+    await userEvent.type(email, emailTest);
+    await userEvent.type(password, passwordTest);
+    await userEvent.click(button);
+    const profileIcon = screen.getByTestId(PROFILE_ICON);
+    await userEvent.click(profileIcon);
+    const buttonDone = screen.getByTestId('profile-done-btn');
+    await userEvent.click(buttonDone);
+    const doneTitle = screen.getByText('Done Recipes');
+    expect(doneTitle).toBeInTheDocument();
+  });
+  test('Testa o click do button Favorite', async () => {
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+    );
+    const email = screen.getByTestId(EMAIL_TESTID);
+    const password = screen.getByTestId(PASSWORD_TESTID);
+    const button = screen.getByTestId(BUTTON_TESTID);
+
+    await userEvent.type(email, emailTest);
+    await userEvent.type(password, passwordTest);
+    await userEvent.click(button);
+    const profileIcon = screen.getByTestId(PROFILE_ICON);
+    await userEvent.click(profileIcon);
+    const buttonFavorite = screen.getByTestId('profile-favorite-btn');
+    await userEvent.click(buttonFavorite);
+    const favoriteTitle = screen.getByText('Favorite Recipes');
+    expect(favoriteTitle).toBeInTheDocument();
+  });
+  test('Testa o button LogOut', async () => {
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+    );
+    const email = screen.getByTestId(EMAIL_TESTID);
+    const password = screen.getByTestId(PASSWORD_TESTID);
+    const button = screen.getByTestId(BUTTON_TESTID);
+
+    await userEvent.type(email, emailTest);
+    await userEvent.type(password, passwordTest);
+    await userEvent.click(button);
+    const profileIcon = screen.getByTestId(PROFILE_ICON);
+    await userEvent.click(profileIcon);
+    const logout = screen.getByTestId('profile-logout-btn');
+    await userEvent.click(logout);
+    expect(screen.getByTestId('email-input')).toBeInTheDocument();
   });
 });
