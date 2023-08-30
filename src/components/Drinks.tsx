@@ -46,14 +46,16 @@ function Drinks() {
         }
       }
     }
-  }, [dataRecipes, drinks, navigate]);
+  }, [dataRecipes, navigate]);
 
-  const renderRecipes = getRecipesRender();
-  console.log(renderRecipes);
+  // const categoryClick = async ({ target }: any) => {
+  //   const valueClick = target.id;
+  //   const filterCategoryDrinks = await apiCall(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${valueClick}`);
+  //   setDrinks(filterCategoryDrinks.drinks);
+  // };
 
   const categoryClick = async ({ target }: any) => {
     const valueClick = target.id;
-
     if (valueClick !== currentCategory) {
       const filterCategoryDrinks = await apiCall(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${valueClick}`);
       setDrinks(filterCategoryDrinks.drinks);
@@ -69,6 +71,9 @@ function Drinks() {
     const apiDrinks = await apiCall(API_DRINKS);
     setDrinks(apiDrinks.drinks);
   };
+
+  const renderRecipes = getRecipesRender();
+  console.log(renderRecipes);
 
   return (
     <>
@@ -93,8 +98,8 @@ function Drinks() {
         </button>
       </div>
       { renderRecipes.map((drink: TypeDrinks, index) => (
-        <Link key={ index } to={ `/drinks/${drink.idDrink}` }>
-          <div data-testid={ `${index}-recipe-card` } key={ index }>
+        <Link to={ `/drinks/${drink.idDrink}` } key={ index }>
+          <div className="recipes" data-testid={ `${index}-recipe-card` } key={ index }>
             <img
               data-testid={ `${index}-card-img` }
               src={ drink.strDrinkThumb }

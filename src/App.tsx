@@ -18,8 +18,7 @@ function App() {
       <Route path="/drinks" element={ <Recipes /> } />
       <Route path="/meals/:idDaReceita" element={ <RecipeDetails /> } />
       <Route path="/drinks/:idDaReceita" element={ <RecipeDetails /> } />
-      <Route path="/meals/:idDaReceita/in-progress" element={ <RecipeInProgress /> } />
-      <Route path="/drinks/:idDaReceita/in-progress" element={ <RecipeInProgress /> } />
+      <Route path="/:type/:id/in-progress" element={ <RecipeInProgress /> } />
       <Route path="/profile" element={ <Profile /> } />
       <Route path="/done-recipes" element={ <DoneRecipes /> } />
       <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
