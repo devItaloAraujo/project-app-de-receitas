@@ -38,6 +38,16 @@ function RecipesProvider({ children }: RecipesProviderProps) {
     }
   }
 
+  async function fetchRecipeById(id: string) {
+    if (location.pathname.includes('/meals')) {
+      const API = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+      fetchData(API);
+    } if (location.pathname.includes('/drinks')) {
+      const API = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+      fetchData(API);
+    }
+  }
+
   const fetchData = async (API: string) => {
     const response = await fetch(API);
     const data = await response.json();
@@ -50,6 +60,7 @@ function RecipesProvider({ children }: RecipesProviderProps) {
     dataRecipes,
     // mealsOrDrink,
     searchEndPoint,
+    fetchRecipeById,
   };
 
   return (
