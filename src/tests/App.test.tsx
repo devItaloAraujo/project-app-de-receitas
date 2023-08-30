@@ -1,9 +1,11 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
 import App from '../App';
 import { renderWithRouter } from './renderWithRouter';
 import RecipesProvider from '../context/RecipesProvider';
+import { recipesResponse } from './mock/recipes.mock';
 
 const EMAIL_TESTID = 'email-input';
 const PASSWORD_TESTID = 'password-input';
@@ -12,6 +14,17 @@ const emailTest = 'test@test.com';
 const passwordTest = '1234567';
 
 describe('Testa a Tela de Login', () => {
+  beforeEach(() => {
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (recipesResponse),
+    });
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+    localStorage.clear();
+  });
+
   test('Testa se o button habilita após escrever o email e senha', async () => {
     renderWithRouter(
       <RecipesProvider>
@@ -46,6 +59,18 @@ describe('Testa a Tela de Login', () => {
 });
 
 describe('Testa o Header', () => {
+  beforeEach(() => {
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (recipesResponse),
+    });
+    window.alert = vi.fn(() => {});
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+    localStorage.clear();
+  });
+
   const PROFILE_ICON = 'profile-top-btn';
   const SEARCH_ICON = 'search-top-btn';
   test('Testa o Header do Meals', () => {
@@ -160,6 +185,16 @@ describe('Testa o Header', () => {
 });
 
 describe('Testa a Tela de Perfil', () => {
+  beforeEach(() => {
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (recipesResponse),
+    });
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+    localStorage.clear();
+  });
   const PROFILE_ICON = 'profile-top-btn';
   test('Testa os elementos do profile', async () => {
     renderWithRouter(
