@@ -4,6 +4,7 @@ import { vi } from 'vitest';
 import { renderWithRouter } from './renderWithRouter';
 import RecipesProvider from '../context/RecipesProvider';
 import DoneRecipes from '../pages/DoneRecipes';
+import { doneRecipes } from './mock/doneRecipes.mock';
 
 const BTN_MEAL_TESTID = 'filter-by-meal-btn';
 const BTN_DRINK_TESTID = 'filter-by-drink-btn';
@@ -14,31 +15,6 @@ const BTN_SHARE_DRINK_TESTID = '1-horizontal-share-btn';
 
 describe('Testa a Tela de Receitas Feitas', () => {
 // Receitas para 'mockar' o LocalStorage
-  const doneRecipes = [
-    {
-      id: '52771',
-      type: 'meal',
-      nationality: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2020',
-      tags: ['Pasta', 'Curry'],
-    },
-    {
-      id: '178319',
-      type: 'drink',
-      nationality: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      doneDate: '23/06/2020',
-      tags: [],
-    },
-  ];
-
   test('Testa os se os botões filtram por categoria de receita', async () => {
     renderWithRouter(
       <RecipesProvider>
