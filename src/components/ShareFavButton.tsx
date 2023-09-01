@@ -21,7 +21,6 @@ function ShareFavButton({ src,
       type={ type }
       onClick={ onClick }
       disabled={ disabled }
-      id="button-fav"
     >
       <img
         src={ src }

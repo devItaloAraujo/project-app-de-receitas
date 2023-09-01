@@ -1,0 +1,27 @@
+.recipe-title {
+  color: #41197f;
+  font-style: italic;
+  margin: 20px;
+  text-align: center;
+}
+
+.span {
+  margin: 20px;
+}
+
+h3 {
+  color: #41197f;
+  margin: 20px;
+}
+
+.button-in-progress {
+  margin-left: 30px;
+  width: 300px;
+}
+
+.link-in-progress {
+  background-color: #fcc436;
+  color: white;
+  text-align: center;
+  width: 500px;
+}
