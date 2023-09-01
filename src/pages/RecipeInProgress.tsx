@@ -4,6 +4,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { Details, DoneRecipe, FavoriteRecipe, Ingredient } from '../types';
+import './RecipeInProgress.css';
 
 let apiUrl: string;
 
@@ -138,10 +139,12 @@ function RecipeInProgress() {
 
   return (
     <>
-      <img src={ details?.photo } alt={ details?.title } data-testid="recipe-photo" />
-      <h2 data-testid="recipe-title">{details?.title}</h2>
       <button data-testid="share-btn" onClick={ copyLink }>
-        <img src={ shareIcon } alt="Botão de compartilhar" />
+        <img
+          src={ shareIcon }
+          alt="Botão de compartilhar"
+          className="button-favorite-img"
+        />
       </button>
       {isShareIconClicked && <span>Link copied!</span>}
       <button onClick={ favoriteRecipe }>
@@ -151,16 +154,26 @@ function RecipeInProgress() {
                 data-testid="favorite-btn"
                 src={ blackHeartIcon }
                 alt="Botão de favoritar selecionado"
+                className="button-favorite-img"
             />
             : <img
                 data-testid="favorite-btn"
                 src={ whiteHeartIcon }
                 alt="Botão de favoritar desselecionado"
+                className="button-favorite-img"
             />
         }
       </button>
-      <span data-testid="recipe-category">{details?.category}</span>
-      <span data-testid="instructions">{details?.instructions}</span>
+      <img
+        src={ details?.photo }
+        alt={ details?.title }
+        data-testid="recipe-photo"
+        className="w-100"
+      />
+      <h2 data-testid="recipe-title" className="recipe-title">{details?.title}</h2>
+      <p data-testid="recipe-category" className="span">{details?.category}</p>
+      <p data-testid="instructions" className="span">{details?.instructions}</p>
+      <h3>Ingredients</h3>
       <ul>
         {
           details?.ingredients.map((ingredient, index) => (
@@ -189,12 +202,14 @@ function RecipeInProgress() {
         data-testid="finish-recipe-btn"
         onClick={ finishRecipe }
         disabled={ !details?.ingredients.every((ingredient) => ingredient.checked) }
+        className="button-in-progress"
       >
         <Link
           to="/done-recipes"
           aria-disabled={
             !details?.ingredients.every((ingredient) => ingredient.checked)
           }
+          className="link-in-progress"
         >
           Finish recipe
         </Link>

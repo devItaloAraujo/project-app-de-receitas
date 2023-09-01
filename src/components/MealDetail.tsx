@@ -8,6 +8,7 @@ import { DataType, TypeDrinks, TypeFavoriteRecipes } from '../types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ShareFavButton from './ShareFavButton';
 import useLocalStorage from '../hooks/useLocalStorage';
+import './Details.css';
 
 function MealDetail() {
   const params = useParams();
@@ -112,7 +113,7 @@ function MealDetail() {
         {copyMessage && <p>Link copied!</p>}
       </div>
       { recipeDetailData.meals?.map((meal) => (
-        <div className="" key={ meal.idMeal }>
+        <div className="details" key={ meal.idMeal }>
           <img
             className="w-100"
             data-testid="recipe-photo"
@@ -141,21 +142,23 @@ function MealDetail() {
           </ul>
           <h3>Instruções</h3>
           <p data-testid="instructions">{ meal.strInstructions }</p>
-          <iframe
-            data-testid="video"
-            width="300"
-            height="150"
-            src={ meal.strYoutube.replace('watch?v=', 'embed/') }
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer;
-              autoplay;
-              clipboard-write;
-              encrypted-media;
-              gyroscope;
-              picture-in-picture;
-              web-share"
-          />
+          <div className="video">
+            <iframe
+              data-testid="video"
+              width="300"
+              height="150"
+              src={ meal.strYoutube.replace('watch?v=', 'embed/') }
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share"
+            />
+          </div>
           <h3>Recomendações</h3>
           <div className="mb-1">
             <Flicking
