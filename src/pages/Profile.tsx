@@ -15,7 +15,7 @@ function Profile() {
 
   return (
     <>
-      <Header title="Profile" perfil pesquisa={ false } />
+      <Header title="PROFILE" perfil pesquisa={ false } />
       <h3 data-testid="profile-email">{ email }</h3>
       <div>
         <button

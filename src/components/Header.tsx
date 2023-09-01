@@ -42,10 +42,17 @@ function Header(props: HeaderProps) {
               </button>) }
         </div>
       </div>
+      { title === 'MEALS'
+        && <img src="src/images/icone-prato.png" alt="icon meals" id="icon" />}
+      { title === 'DRINKS'
+        && <img src="src/images/icone-bebida.png" alt="icon drinks" id="icon" />}
+      { title === 'DONE RECIPES'
+        && <img src="src/images/doneRecipes.svg" alt="icon drinks" id="icon" />}
+      { title === 'FAVORITE RECIPES'
+        && <img src="src/images/favoriteRecipes.svg" alt="icon drinks" id="icon" />}
+      { title === 'PROFILE'
+        && <img src="src/images/perfilprofile.svg" alt="icon drinks" id="icon" />}
       <h1 data-testid="page-title">{ title }</h1>
-      { title === 'Meals'
-        ? <img src="src/images/icone-prato.png" alt="icon meals" id="icon" />
-        : <img src="src/images/icone-bebida.png" alt="icon drinks" id="icon" /> }
       { search
         && <SearchBar /> }
     </header>

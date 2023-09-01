@@ -41,7 +41,7 @@ function Login() {
           className="input-form"
         />
         <input
-          type="text"
+          type="password"
           data-testid="password-input"
           name="password"
           value={ password }

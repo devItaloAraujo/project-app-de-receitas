@@ -10,8 +10,8 @@ function Recipes() {
   return (
     <>
       { location.pathname === '/meals'
-        ? <Header title="Meals" perfil pesquisa />
-        : <Header title="Drinks" perfil pesquisa /> }
+        ? <Header title="MEALS" perfil pesquisa />
+        : <Header title="DRINKS" perfil pesquisa /> }
       { location.pathname === '/meals'
         && <Meals /> }
       { location.pathname === '/drinks'

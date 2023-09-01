@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { FavoriteRecipe, RecipeType } from '../types';
+import Footer from '../components/Footer';
 
 function FavoriteRecipes() {
   const [displayRecipes, setDisplayRecipes] = useState('all');
@@ -40,7 +41,7 @@ function FavoriteRecipes() {
 
   return (
     <div>
-      <Header title="Favorite Recipes" perfil pesquisa={ false } />
+      <Header title="FAVORITE RECIPES" perfil pesquisa={ false } />
       { (linkCopied) && <p>Link copied!</p>}
       <button
         data-testid="filter-by-all-btn"
@@ -149,6 +150,7 @@ function FavoriteRecipes() {
             );
           } return null;
         }))}
+      <Footer />
     </div>
   );
 }

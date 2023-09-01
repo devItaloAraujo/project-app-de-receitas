@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { RecipeType } from '../types';
+import Footer from '../components/Footer';
 
 function DoneRecipes() {
   const [displayRecipes, setDisplayRecipes] = useState('all');
@@ -29,7 +30,7 @@ function DoneRecipes() {
 
   return (
     <div>
-      <Header title="Done Recipes" perfil pesquisa={ false } />
+      <Header title="DONE RECIPES" perfil pesquisa={ false } />
       { (linkCopied) && <p>Link copied!</p>}
       <button
         data-testid="filter-by-all-btn"
@@ -132,6 +133,7 @@ function DoneRecipes() {
             );
           } return null;
         }))}
+      <Footer />
     </div>
   );
 }

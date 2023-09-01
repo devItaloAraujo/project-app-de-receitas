@@ -2,8 +2,19 @@ footer {
   background-color: #41197f;
   display: flex;
   justify-content: space-around;
+  height: 46px;
+  width: 360px;
 }
 
-.footer-icon {
-  width: 50px;
+.footer-icon-meal {
+  margin-top: 10px;
+  width: 40px;
+  width: 30px;
+}
+
+
+.footer-icon-drink {
+  margin-top: 10px;
+  width: 25px;
+  width: 25px;
 }
