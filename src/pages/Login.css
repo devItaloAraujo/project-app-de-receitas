@@ -1,0 +1,38 @@
+.Login {
+  background-image: url('src/images/background-image.jpg');
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.form-container {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: 240px;
+  justify-content: center;
+  margin-top: 300px;
+  padding: 20px;
+}
+
+.input-form {
+  margin: 10px;
+  width: 250px;
+}
+
+.button-form {
+  background-color: #fcc436;
+  color: white;
+  margin: 10px;
+  width: 250px;
+}
+
+.form-container h2 {
+  color: #41197f;
+  font-style: italic;
+}
+
+img {
+  width: 130px;
+}

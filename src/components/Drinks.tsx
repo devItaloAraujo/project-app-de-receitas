@@ -77,13 +77,14 @@ function Drinks() {
 
   return (
     <>
-      <div>
+      <div className="category-container">
         { drinksCategoryList.slice(0, 5).map((category: any, index: number) => (
           <button
             type="button"
             data-testid={ `${category.strCategory}-category-filter` }
             key={ index }
             id={ category.strCategory }
+            className="category-icon"
             onClick={ categoryClick }
           >
             { category.strCategory }
@@ -92,23 +93,26 @@ function Drinks() {
         <button
           type="button"
           data-testid="All-category-filter"
+          className="category-icon"
           onClick={ categoryByAll }
         >
           All
         </button>
       </div>
-      { renderRecipes.map((drink: TypeDrinks, index) => (
-        <Link to={ `/drinks/${drink.idDrink}` } key={ index }>
-          <div className="recipes" data-testid={ `${index}-recipe-card` } key={ index }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ drink.strDrinkThumb }
-              alt="Recipe drinks"
-            />
-            <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
-          </div>
-        </Link>
-      )) }
+      <div className="cards">
+        { renderRecipes.map((drink: TypeDrinks, index) => (
+          <Link to={ `/drinks/${drink.idDrink}` } key={ index } className="recipes-link">
+            <div className="recipes" data-testid={ `${index}-recipe-card` } key={ index }>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ drink.strDrinkThumb }
+                alt="Recipe drinks"
+              />
+              <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
+            </div>
+          </Link>
+        )) }
+      </div>
     </>
   );
 }

@@ -1,0 +1,39 @@
+.input-search {
+  border-radius: 5px;
+  height: 40px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.search-container {
+  align-items: center;
+  background-color: #41197f;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  width: 350px;
+}
+
+.radio-button {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 10px;
+}
+
+.radio-button label {
+  color: white;
+}
+
+.search-container button {
+  background-color: #fcc436;
+  border-radius: 8px;
+  color: white;
+  margin-bottom: 5px;
+  padding: 8px;
+  width: 250px;
+}
+
+.radio {
+  margin: 5px;
+}
