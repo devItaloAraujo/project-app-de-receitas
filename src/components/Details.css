@@ -1,0 +1,24 @@
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.details h1 {
+  color: #41197f;
+  font-style: italic;
+  margin: 20px;
+  text-align: center;
+}
+
+.details p {
+  margin: 20px;
+}
+
+.details h3 {
+  color: #41197f;
+  margin: 20px;
+}
+
+.video {
+  margin: 20px;
+}

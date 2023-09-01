@@ -1,3 +1,5 @@
+import './ShareFavButton.css';
+
 type Props = {
   src: string;
   alt: 'share' | 'favorite';
@@ -19,11 +21,13 @@ function ShareFavButton({ src,
       type={ type }
       onClick={ onClick }
       disabled={ disabled }
+      id="button-fav"
     >
       <img
         src={ src }
         alt={ alt }
         data-testid={ `${alt}-btn` }
+        className="button-favorite-img"
       />
     </button>
   );

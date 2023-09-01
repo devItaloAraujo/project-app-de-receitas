@@ -8,6 +8,7 @@ import { DataType, TypeFavoriteRecipes, TypeMeals } from '../types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ShareFavButton from './ShareFavButton';
 import useLocalStorage from '../hooks/useLocalStorage';
+import './Details.css';
 
 function DrinkDetail() {
   const params = useParams();
@@ -112,7 +113,7 @@ function DrinkDetail() {
         {copyMessage && <p>Link copied!</p>}
       </div>
       { recipeDetailData.drinks?.map((drink) => (
-        <div key={ drink.idDrink }>
+        <div className="details" key={ drink.idDrink }>
           <img
             className="w-100"
             data-testid="recipe-photo"
