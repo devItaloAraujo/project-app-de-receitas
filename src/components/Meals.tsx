@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import RecipesContext from '../context/RecipesContext';
 import { TypeMeals } from '../types';
 import { apiCall } from '../helpers/apiCall';
+import './Recipes.css';
 
 const API_MEALS = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const API_MEALS_CATEGORY = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
@@ -78,13 +79,14 @@ function Meals() {
 
   return (
     <>
-      <div>
+      <div className="category-container">
         { mealsCategoryList.slice(0, 5).map((category: any, index: number) => (
           <button
             type="button"
             data-testid={ `${category.strCategory}-category-filter` }
             key={ index }
             id={ category.strCategory }
+            className="category-icon"
             onClick={ categoryClick }
           >
             { category.strCategory }
@@ -93,23 +95,26 @@ function Meals() {
         <button
           type="button"
           data-testid="All-category-filter"
+          className="category-icon"
           onClick={ categoryByAll }
         >
           All
         </button>
       </div>
-      { renderRecipes.map((meal: TypeMeals, index) => (
-        <Link to={ `/meals/${meal.idMeal}` } key={ index }>
-          <div className="recipes" data-testid={ `${index}-recipe-card` } key={ index }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ meal.strMealThumb }
-              alt="Recipe meals"
-            />
-            <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
-          </div>
-        </Link>
-      ))}
+      <div className="cards">
+        { renderRecipes.map((meal: TypeMeals, index) => (
+          <Link to={ `/meals/${meal.idMeal}` } key={ index } className="recipes-link">
+            <div className="recipes" data-testid={ `${index}-recipe-card` } key={ index }>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ meal.strMealThumb }
+                alt="Recipe meals"
+              />
+              <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </>
   );
 }

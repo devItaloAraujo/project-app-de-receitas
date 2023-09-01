@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import './Footer.css';
 
 function Footer() {
   return (
@@ -8,6 +9,7 @@ function Footer() {
           src="src/images/drinkIcon.svg"
           alt="drink icon"
           data-testid="drinks-bottom-btn"
+          className="footer-icon"
         />
       </Link>
       <Link to="/meals">
@@ -15,6 +17,7 @@ function Footer() {
           src="src/images/mealIcon.svg"
           alt="meal icon"
           data-testid="meals-bottom-btn"
+          className="footer-icon"
         />
       </Link>
     </footer>
