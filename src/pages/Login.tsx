@@ -25,7 +25,7 @@ function Login() {
   };
 
   return (
-    <>
+    <div className="Login">
       <img
         src="src/images/logo-Recipes-App.png"
         alt="logo do App"
@@ -56,7 +56,7 @@ function Login() {
           Enter
         </button>
       </form>
-    </>
+    </div>
   );
 }
 
