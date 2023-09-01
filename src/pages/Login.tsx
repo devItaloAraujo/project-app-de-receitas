@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
+import './Login.css';
 
 function Login() {
   const [disabled, setDisabled] = useState(true);
@@ -24,23 +25,38 @@ function Login() {
   };
 
   return (
-    <form onSubmit={ (event) => handleSubmit(event) }>
-      <input
-        type="text"
-        data-testid="email-input"
-        name="email"
-        value={ email }
-        onChange={ (event) => setEmail(event.target.value) }
+    <>
+      <img
+        src="src/images/logo-Recipes-App.png"
+        alt="logo do App"
       />
-      <input
-        type="text"
-        data-testid="password-input"
-        name="password"
-        value={ password }
-        onChange={ (event) => setPassword(event.target.value) }
-      />
-      <button data-testid="login-submit-btn" disabled={ disabled }>Enter</button>
-    </form>
+      <form onSubmit={ (event) => handleSubmit(event) } className="form-container">
+        <h2>LOGIN</h2>
+        <input
+          type="text"
+          data-testid="email-input"
+          name="email"
+          value={ email }
+          onChange={ (event) => setEmail(event.target.value) }
+          className="input-form"
+        />
+        <input
+          type="text"
+          data-testid="password-input"
+          name="password"
+          value={ password }
+          onChange={ (event) => setPassword(event.target.value) }
+          className="input-form"
+        />
+        <button
+          data-testid="login-submit-btn"
+          disabled={ disabled }
+          className="button-form"
+        >
+          Enter
+        </button>
+      </form>
+    </>
   );
 }
 
