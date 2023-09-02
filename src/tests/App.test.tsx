@@ -2,6 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
+import { act } from 'react-dom/test-utils';
 import App from '../App';
 import { renderWithRouter } from './renderWithRouter';
 import RecipesProvider from '../context/RecipesProvider';
@@ -26,11 +27,13 @@ describe('Testa a Tela de Login', () => {
   });
 
   test('Testa se o button habilita após escrever o email e senha', async () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-    );
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+      );
+    });
     const email = screen.getByTestId(EMAIL_TESTID);
     const password = screen.getByTestId(PASSWORD_TESTID);
     const button = screen.getByTestId(BUTTON_TESTID);
@@ -43,11 +46,13 @@ describe('Testa a Tela de Login', () => {
     expect(screen.getByTestId('page-title')).toBeInTheDocument();
   });
   test('Testa se o button continua desabilitado ao escrever email e senha errado', async () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-    );
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+      );
+    });
     const email = screen.getByTestId(EMAIL_TESTID);
     const password = screen.getByTestId(PASSWORD_TESTID);
     const button = screen.getByTestId(BUTTON_TESTID);
@@ -73,14 +78,19 @@ describe('Testa o Header', () => {
 
   const PROFILE_ICON = 'profile-top-btn';
   const SEARCH_ICON = 'search-top-btn';
-  test('Testa o Header do Meals', () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-      { initialEntries: ['/meals'] },
-    );
-    const title = screen.getByRole('heading', { name: 'Meals' });
+  test('Testa o Header do Meals', async () => {
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+        { initialEntries: ['/meals'] },
+      );
+    });
+    let title;
+    await act(() => {
+      title = screen.getByRole('heading', { name: 'Meals' });
+    });
     const profileIcon = screen.getByTestId(PROFILE_ICON);
     const searchIcon = screen.getByTestId(SEARCH_ICON);
 
@@ -88,14 +98,19 @@ describe('Testa o Header', () => {
     expect(profileIcon).toBeInTheDocument();
     expect(searchIcon).toBeInTheDocument();
   });
-  test('Testa o Header do Drinks', () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-      { initialEntries: ['/drinks'] },
-    );
-    const title = screen.getByRole('heading', { name: 'Drinks' });
+  test('Testa o Header do Drinks', async () => {
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+        { initialEntries: ['/drinks'] },
+      );
+    });
+    let title;
+    await act(() => {
+      title = screen.getByRole('heading', { name: 'Drinks' });
+    });
     const profileIcon = screen.getByTestId(PROFILE_ICON);
     const searchIcon = screen.getByTestId(SEARCH_ICON);
 
@@ -104,12 +119,14 @@ describe('Testa o Header', () => {
     expect(searchIcon).toBeInTheDocument();
   });
   test('Testa o Header do DoneRecipes', () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-      { initialEntries: ['/done-recipes'] },
-    );
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+        { initialEntries: ['/done-recipes'] },
+      );
+    });
     const title = screen.getByRole('heading', { name: 'Done Recipes' });
     const profileIcon = screen.getByTestId(PROFILE_ICON);
     const buttons = screen.getAllByRole('button');
@@ -119,12 +136,14 @@ describe('Testa o Header', () => {
     expect(buttons).toHaveLength(4);
   });
   test('Testa o Header do FavoriteRecipes', () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-      { initialEntries: ['/favorite-recipes'] },
-    );
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+        { initialEntries: ['/favorite-recipes'] },
+      );
+    });
     const title = screen.getByRole('heading', { name: 'Favorite Recipes' });
     const profileIcon = screen.getByTestId(PROFILE_ICON);
     const buttons = screen.getAllByRole('button');
@@ -134,12 +153,14 @@ describe('Testa o Header', () => {
     expect(buttons).toHaveLength(4);
   });
   test('Testa o Header do Profile', () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-      { initialEntries: ['/profile'] },
-    );
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+        { initialEntries: ['/profile'] },
+      );
+    });
     const title = screen.getByRole('heading', { name: 'Profile' });
     const profileIcon = screen.getByTestId(PROFILE_ICON);
     const buttons = screen.getAllByRole('button');
@@ -149,12 +170,14 @@ describe('Testa o Header', () => {
     expect(buttons).toHaveLength(4);
   });
   test('Testa a barra de busca do header', async () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-      { initialEntries: ['/meals'] },
-    );
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+        { initialEntries: ['/meals'] },
+      );
+    });
     const searchIcon = screen.getByTestId(SEARCH_ICON);
 
     await userEvent.click(searchIcon);
@@ -171,12 +194,14 @@ describe('Testa o Header', () => {
     expect(buttonSearch).toBeInTheDocument();
   });
   test('Testa se ao clicar no icone de perfil, navega ate a profile', async () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-      { initialEntries: ['/meals'] },
-    );
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+        { initialEntries: ['/meals'] },
+      );
+    });
     const profileIcon = screen.getByTestId(PROFILE_ICON);
 
     await userEvent.click(profileIcon);
@@ -197,11 +222,13 @@ describe('Testa a Tela de Perfil', () => {
   });
   const PROFILE_ICON = 'profile-top-btn';
   test('Testa os elementos do profile', async () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-    );
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+      );
+    });
     const email = screen.getByTestId(EMAIL_TESTID);
     const password = screen.getByTestId(PASSWORD_TESTID);
     const button = screen.getByTestId(BUTTON_TESTID);
@@ -224,11 +251,13 @@ describe('Testa a Tela de Perfil', () => {
     expect(logout).toBeInTheDocument();
   });
   test('Testa o click do button Done', async () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-    );
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+      );
+    });
     const email = screen.getByTestId(EMAIL_TESTID);
     const password = screen.getByTestId(PASSWORD_TESTID);
     const button = screen.getByTestId(BUTTON_TESTID);
@@ -244,11 +273,13 @@ describe('Testa a Tela de Perfil', () => {
     expect(doneTitle).toBeInTheDocument();
   });
   test('Testa o click do button Favorite', async () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-    );
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+      );
+    });
     const email = screen.getByTestId(EMAIL_TESTID);
     const password = screen.getByTestId(PASSWORD_TESTID);
     const button = screen.getByTestId(BUTTON_TESTID);
@@ -264,11 +295,13 @@ describe('Testa a Tela de Perfil', () => {
     expect(favoriteTitle).toBeInTheDocument();
   });
   test('Testa o button LogOut', async () => {
-    renderWithRouter(
-      <RecipesProvider>
-        <App />
-      </RecipesProvider>,
-    );
+    act(() => {
+      renderWithRouter(
+        <RecipesProvider>
+          <App />
+        </RecipesProvider>,
+      );
+    });
     const email = screen.getByTestId(EMAIL_TESTID);
     const password = screen.getByTestId(PASSWORD_TESTID);
     const button = screen.getByTestId(BUTTON_TESTID);

@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import { Details, DoneRecipe, FavoriteRecipe, Ingredient } from '../types';
+import { Details, DoneRecipe, FavoriteRecipe, Ingredient, Progress } from '../types';
 import './RecipeInProgress.css';
 
 let apiUrl: string;
@@ -21,14 +21,13 @@ function RecipeInProgress() {
   }
 
   useEffect(() => {
-    const inProgressRecipe = (
-      JSON.parse(localStorage.getItem('inProgressRecipes') || '[]') as Array<Details>)
-      .filter(
-        (currentInProgressRecipe) => currentInProgressRecipe.id === id,
-      )[0];
+    const inProgressRecipe = localStorage.getItem('inProgressRecipes')
+      ? (
+        JSON.parse(localStorage.getItem('inProgressRecipes') || '{}') as Progress
+      )[type as string][id as string] : null;
 
     if (inProgressRecipe) {
-      setDetails(inProgressRecipe);
+      setDetails(inProgressRecipe[0]);
     } else {
       fetch(apiUrl).then((response) => response.json())
         .then(({ meals, drinks }) => {
@@ -51,19 +50,27 @@ function RecipeInProgress() {
           });
         });
     }
-  }, [id]);
+  }, [id, type]);
 
   useEffect(() => {
     if (details) {
-      const inProgressRecipes = JSON.parse(
-        localStorage.getItem('inProgressRecipes') || '[]',
-      ) as Array<Details>;
+      const inProgressRecipes = localStorage.getItem('inProgressRecipes')
+        ? JSON.parse(localStorage.getItem('inProgressRecipes') || '{}') as Progress : {};
 
       localStorage.setItem('inProgressRecipes', JSON.stringify(
-        [
-          ...inProgressRecipes.filter((inProgressRecipe) => inProgressRecipe.id !== id),
-          details,
-        ],
+        {
+          ...inProgressRecipes,
+          [type as string]: {
+            ...inProgressRecipes[type as string],
+            [details.id]: [
+              ...(
+                (inProgressRecipes[type as string] || {})[details.id as string] || []
+              )
+                .filter((inProgressRecipe) => inProgressRecipe.id !== id),
+              details,
+            ],
+          },
+        } as Progress,
       ));
       const favoriteRecipes = JSON.parse(
         localStorage.getItem('favoriteRecipes') || '[]',
@@ -74,7 +81,7 @@ function RecipeInProgress() {
         }
       });
     }
-  }, [id, details]);
+  }, [id, details, type]);
 
   const copyLink = () => {
     const appUrl = window.location.href.replace('/in-progress', '');
