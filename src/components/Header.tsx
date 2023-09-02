@@ -48,7 +48,7 @@ function Header(props: HeaderProps) {
         && <img src="src/images/icone-bebida.png" alt="icon drinks" id="icon" />}
       { title === 'DONE RECIPES'
         && <img src="src/images/doneRecipes.svg" alt="icon drinks" id="icon" />}
-      { title === 'FAVORITE RECIPES'
+      { title === 'FAVORITES'
         && <img src="src/images/favoriteRecipes.svg" alt="icon drinks" id="icon" />}
       { title === 'PROFILE'
         && <img src="src/images/perfilprofile.svg" alt="icon drinks" id="icon" />}

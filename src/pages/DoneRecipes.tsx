@@ -100,9 +100,6 @@ function DoneRecipes() {
                   >
                     {`${recipe.nationality} - ${recipe.category}`}
                   </p>
-                  <p data-testid={ `${index}-horizontal-done-date` }>
-                    {`Done in: ${recipe.doneDate.substring(0, 10)}`}
-                  </p>
                   <button
                     name={ recipe.type }
                     id={ recipe.id }
@@ -114,6 +111,9 @@ function DoneRecipes() {
                       alt="share button"
                     />
                   </button>
+                  <p data-testid={ `${index}-horizontal-done-date` }>
+                    {`Done in: ${recipe.doneDate.substring(0, 10)}`}
+                  </p>
                   <div>
                     {recipe.tags
                       .map((tag) => (
@@ -153,9 +153,6 @@ function DoneRecipes() {
                   >
                     {`${recipe.alcoholicOrNot}`}
                   </p>
-                  <p data-testid={ `${index}-horizontal-done-date` }>
-                    {`Done in: ${recipe.doneDate.substring(0, 10)}`}
-                  </p>
                   <button
                     name={ recipe.type }
                     id={ recipe.id }
@@ -167,6 +164,9 @@ function DoneRecipes() {
                       alt="share button"
                     />
                   </button>
+                  <p data-testid={ `${index}-horizontal-done-date` }>
+                    {`Done in: ${recipe.doneDate.substring(0, 10)}`}
+                  </p>
                 </div>
               </div>
             );

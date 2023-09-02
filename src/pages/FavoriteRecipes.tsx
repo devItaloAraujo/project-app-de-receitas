@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { FavoriteRecipe, RecipeType } from '../types';
 import Footer from '../components/Footer';
+import './FavoriteRecipes.css';
 
 function FavoriteRecipes() {
   const [displayRecipes, setDisplayRecipes] = useState('all');
@@ -41,30 +42,47 @@ function FavoriteRecipes() {
 
   return (
     <div>
-      <Header title="FAVORITE RECIPES" perfil pesquisa={ false } />
+      <Header title="FAVORITES" perfil pesquisa={ false } />
       { (linkCopied) && <p>Link copied!</p>}
-      <button
-        data-testid="filter-by-all-btn"
-        name="all"
-        onClick={ () => setDisplayRecipes('all') }
-      >
-        All
-      </button>
-      <button
-        data-testid="filter-by-meal-btn"
-        name="meals"
-        onClick={ () => setDisplayRecipes('meal') }
-      >
-        Meals
-      </button>
-      <button
-        data-testid="filter-by-drink-btn"
-        name="drinks"
-        onClick={ () => setDisplayRecipes('drink') }
-      >
-        Drinks
-      </button>
-      { (favoriteRecipesDisplay)
+      <div className="filters-container">
+        <label htmlFor="all" className="filter-label">
+          <button
+            data-testid="filter-by-all-btn"
+            name="all"
+            id="all"
+            onClick={ () => setDisplayRecipes('all') }
+            className="btn-filter"
+          >
+            <img src="src/images/icone-all.png" alt="all-icon" />
+          </button>
+          <span>All</span>
+        </label>
+        <label htmlFor="meals" className="filter-label">
+          <button
+            data-testid="filter-by-meal-btn"
+            name="meals"
+            id="meals"
+            onClick={ () => setDisplayRecipes('meal') }
+            className="btn-filter"
+          >
+            <img src="src/images/icone-prato.png" alt="all-icon" />
+          </button>
+          <span>Meals</span>
+        </label>
+        <label htmlFor="drinks" className="filter-label">
+          <button
+            data-testid="filter-by-drink-btn"
+            name="drinks"
+            onClick={ () => setDisplayRecipes('drink') }
+            className="btn-filter"
+          >
+            <img src="src/images/icone-bebida.png" alt="all-icon" />
+          </button>
+          <span>Drinks</span>
+        </label>
+      </div>
+      <div className="recipes-container">
+        { (favoriteRecipesDisplay)
         && (favoriteRecipesDisplay.map((recipe, index) => {
           if (recipe.type === 'meal') {
             return (
@@ -150,6 +168,7 @@ function FavoriteRecipes() {
             );
           } return null;
         }))}
+      </div>
       <Footer />
     </div>
   );

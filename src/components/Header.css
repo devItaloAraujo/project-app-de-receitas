@@ -34,6 +34,9 @@ header img {
 
 header h1 {
   color: #41197f;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 2.1px;
   margin: 10px;
 }
 
