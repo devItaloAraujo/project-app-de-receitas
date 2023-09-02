@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { FavoriteRecipe, RecipeType } from '../types';
 import Footer from '../components/Footer';
-import './FavoriteRecipes.css';
+import './FavoriteAndDoneRecipes.css';
 
 function FavoriteRecipes() {
   const [displayRecipes, setDisplayRecipes] = useState('all');
@@ -86,84 +86,104 @@ function FavoriteRecipes() {
         && (favoriteRecipesDisplay.map((recipe, index) => {
           if (recipe.type === 'meal') {
             return (
-              <div data-testid={ `${index}-recipe-card` } key={ `${index}-recipe-card` }>
-                <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <div
+                data-testid={ `${index}-recipe-card` }
+                key={ `${index}-recipe-card` }
+                className="individual-recipe-container"
+              >
+                <Link
+                  to={ `/${recipe.type}s/${recipe.id}` }
+                  className="left-side-recipe-card"
+                >
                   <img
-                    style={ { width: '100px' } }
                     data-testid={ `${index}-horizontal-image` }
                     src={ recipe.image }
                     alt="Recipe meals"
                   />
-                  <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
                 </Link>
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  {`${recipe.nationality} - ${recipe.category}`}
-                </p>
-                <button
-                  name={ recipe.type }
-                  id={ recipe.id }
-                  onClick={ handleCopy }
-                >
-                  <img
-                    data-testid={ `${index}-horizontal-share-btn` }
-                    src="src/images/shareIcon.svg"
-                    alt="share button"
-                  />
-                </button>
-                <button
-                  name="like"
-                  id={ recipe.id }
-                  onClick={ handleDesfavorite }
-                >
-                  <img
-                    data-testid={ `${index}-horizontal-favorite-btn` }
-                    src="src/images/blackHeartIcon.svg"
-                    alt="like button"
-                  />
-                </button>
+                <div className="right-side-recipe-card">
+                  <Link to={ `/${recipe.type}s/${recipe.id}` }>
+                    <h6 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h6>
+                  </Link>
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {`${recipe.nationality} - ${recipe.category}`}
+                  </p>
+                  <button
+                    name={ recipe.type }
+                    id={ recipe.id }
+                    onClick={ handleCopy }
+                  >
+                    <img
+                      data-testid={ `${index}-horizontal-share-btn` }
+                      src="src/images/share.svg"
+                      alt="share button"
+                    />
+                  </button>
+                  <button
+                    name="like"
+                    id={ recipe.id }
+                    onClick={ handleDesfavorite }
+                  >
+                    <img
+                      data-testid={ `${index}-horizontal-favorite-btn` }
+                      src="src/images/icon-heart.svg"
+                      alt="like button"
+                    />
+                  </button>
+                </div>
               </div>
             );
           } if (recipe.type === 'drink') {
             return (
-              <div data-testid={ `${index}-recipe-card` } key={ `${index}-recipe-card` }>
-                <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <div
+                data-testid={ `${index}-recipe-card` }
+                key={ `${index}-recipe-card` }
+                className="individual-recipe-container"
+              >
+                <Link
+                  to={ `/${recipe.type}s/${recipe.id}` }
+                  className="left-side-recipe-card"
+                >
                   <img
-                    style={ { width: '100px' } }
                     data-testid={ `${index}-horizontal-image` }
                     src={ recipe.image }
-                    alt="Recipe drinks"
+                    alt="Recipe meals"
                   />
-                  <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
                 </Link>
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  {`${recipe.alcoholicOrNot}`}
-                </p>
-                <button
-                  name={ recipe.type }
-                  id={ recipe.id }
-                  onClick={ handleCopy }
-                >
-                  <img
-                    data-testid={ `${index}-horizontal-share-btn` }
-                    src="src/images/shareIcon.svg"
-                    alt="share button"
-                  />
-                </button>
-                <button
-                  name="like"
-                  id={ recipe.id }
-                  onClick={ handleDesfavorite }
-                >
-                  <img
-                    data-testid={ `${index}-horizontal-favorite-btn` }
-                    src="src/images/blackHeartIcon.svg"
-                    alt="like button"
-                  />
-                </button>
+                <div className="right-side-recipe-card">
+                  <Link to={ `/${recipe.type}s/${recipe.id}` }>
+                    <h6 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h6>
+                  </Link>
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {`${recipe.alcoholicOrNot}`}
+                  </p>
+                  <button
+                    name={ recipe.type }
+                    id={ recipe.id }
+                    onClick={ handleCopy }
+                  >
+                    <img
+                      data-testid={ `${index}-horizontal-share-btn` }
+                      src="src/images/share.svg"
+                      alt="share button"
+                    />
+                  </button>
+                  <button
+                    name="like"
+                    id={ recipe.id }
+                    onClick={ handleDesfavorite }
+                  >
+                    <img
+                      data-testid={ `${index}-horizontal-favorite-btn` }
+                      src="src/images/icon-heart.svg"
+                      alt="like button"
+                    />
+                  </button>
+                </div>
               </div>
             );
           } return null;

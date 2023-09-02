@@ -1,0 +1,29 @@
+.profile-options-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-options-container button {
+  background-color: white;
+  border: none;
+  border-bottom: 1px solid #b1b1b1;
+  padding-bottom: 26px;
+  padding-top: 26px;
+  width: 260px;
+}
+
+.profile-options-container button img {
+  height: 38.692px;
+  margin-right: 22px;
+  width: 39.426px;
+}
+
+h3 {
+  color: #1a1b1c;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 16px;
+  text-align: center;
+}

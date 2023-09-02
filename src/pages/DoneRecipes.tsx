@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { RecipeType } from '../types';
 import Footer from '../components/Footer';
-import './DoneRecipes.css';
+import './FavoriteAndDoneRecipes.css';
 
 function DoneRecipes() {
   const [displayRecipes, setDisplayRecipes] = useState('all');
