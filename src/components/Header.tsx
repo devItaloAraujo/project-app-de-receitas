@@ -24,7 +24,7 @@ function Header(props: HeaderProps) {
             && (
               <button onClick={ () => navigate('/profile') } className="button-header">
                 <img
-                  src="src/images/icone-perfil.png"
+                  src="src/images/profileIcon.png"
                   alt="logo profile"
                   data-testid="profile-top-btn"
                   className="icon-header"
@@ -34,7 +34,7 @@ function Header(props: HeaderProps) {
             && (
               <button onClick={ () => setSearch(!search) } className="button-header">
                 <img
-                  src="src/images/icone-de-pesquisa.png"
+                  src="src/images/searchIcon.png"
                   alt="logo search"
                   data-testid="search-top-btn"
                   className="icon-header"

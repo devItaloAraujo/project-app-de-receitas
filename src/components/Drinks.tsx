@@ -48,12 +48,6 @@ function Drinks() {
     }
   }, [dataRecipes, navigate]);
 
-  // const categoryClick = async ({ target }: any) => {
-  //   const valueClick = target.id;
-  //   const filterCategoryDrinks = await apiCall(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${valueClick}`);
-  //   setDrinks(filterCategoryDrinks.drinks);
-  // };
-
   const categoryClick = async ({ target }: any) => {
     const valueClick = target.id;
     if (valueClick !== currentCategory) {
@@ -73,7 +67,6 @@ function Drinks() {
   };
 
   const renderRecipes = getRecipesRender();
-  console.log(renderRecipes);
 
   return (
     <>

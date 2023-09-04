@@ -131,6 +131,19 @@ export type TypeFavoriteRecipes = {
   image: string;
 }[];
 
+export type Recommendation = {
+  photo: string,
+  title: string,
+};
+
+export type Progress = {
+  [type: string]: ProgressItems,
+};
+
+export type ProgressItems = {
+  [id: string]: Array<Details>,
+};
+
 export type Details = {
   id: string,
   photo: string,
@@ -139,8 +152,10 @@ export type Details = {
   instructions: string,
   nationality: string,
   alcoholicOrNot: string,
+  youtube?: string,
   tags: Array<string>,
   ingredients: Array<Ingredient>,
+  measures?: Array<string>,
 };
 
 export type Ingredient = {
