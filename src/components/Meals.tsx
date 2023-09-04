@@ -43,20 +43,12 @@ function Meals() {
           navigate(`/meals/${dataRecipes.meals[0].idMeal}`);
         } else {
           setMeals(dataRecipes.meals);
-          console.log(meals);
         }
       }
     }
   }, [dataRecipes, meals, navigate]);
 
   const renderRecipes = getRecipesRender();
-
-  // const categoryClick = async ({ target }: any) => {
-  //   const valueClick = target.id;
-  //   const filterCategoryMeals = await apiCall(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${valueClick}`);
-  //   setMeals(filterCategoryMeals.meals);
-  //   console.log(currentCategory);
-  // };
 
   const categoryClick = async ({ target }: any) => {
     const valueClick = target.id;
