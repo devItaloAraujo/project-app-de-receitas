@@ -18,7 +18,7 @@ function Meals() {
 
   const getRecipesRender = () => {
     if (location.pathname === '/meals' && meals.length > 0) {
-      return meals.length < 12 ? meals : meals.slice(0, 12);
+      return meals.length < 12 ? meals : meals.slice(0, 6);
     }
     return [];
   };
@@ -70,7 +70,7 @@ function Meals() {
   };
 
   return (
-    <>
+    <div className="gray-bg">
       <div className="category-container">
         { mealsCategoryList.slice(0, 5).map((category: any, index: number) => (
           <button
@@ -107,7 +107,7 @@ function Meals() {
           </Link>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

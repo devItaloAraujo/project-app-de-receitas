@@ -7,25 +7,28 @@
 
 .form-container {
   align-items: center;
-  background-color: white;
   display: flex;
   flex-direction: column;
   height: 240px;
   justify-content: center;
-  margin-top: 300px;
-  padding: 20px;
+  margin-top: 500px;
+  padding: 70px;
+  background-color: rgb(223, 220, 220);
+  width: 400px;
 }
 
 .input-form {
   margin: 10px;
   width: 250px;
+  border-radius: 5px;
 }
 
 .button-form {
   background-color: #fcc436;
-  color: white;
+  color: black;
   margin: 10px;
   width: 250px;
+  border-radius: 5px;
 }
 
 .form-container h2 {
@@ -34,5 +37,6 @@
 }
 
 img {
+  margin: 10px;
   width: 130px;
 }

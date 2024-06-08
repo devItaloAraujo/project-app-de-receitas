@@ -1,21 +1,33 @@
 .category-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 10px;
+  justify-content: space-between;
+  padding: 0 20px;
+  overflow: hidden;
+}
+
+.gray-bg {
+  background-color: rgb(223, 220, 220);
 }
 
 .category-icon {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   background-color: #fcc436;
-  color: white;
+  color: black;
   margin: 2px;
   padding: 4px;
+  border-radius: 10px;
+  height: 50px;
 }
 
 .cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+.cards div {
+  background-color: white;
 }
 
 .recipes-link {

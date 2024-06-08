@@ -1,16 +1,23 @@
+:root {
+  width: 100%;
+  background-color: rgb(223, 220, 220);
+}
+
 .profile-options-container {
   align-items: center;
   display: flex;
   flex-direction: column;
+  background-color: rgb(223, 220, 220);
+  width: 100%;
 }
 
 .profile-options-container button {
-  background-color: white;
+  background-color: rgb(223, 220, 220);
   border: none;
   border-bottom: 1px solid #b1b1b1;
   padding-bottom: 26px;
   padding-top: 26px;
-  width: 260px;
+  width: 412px;
 }
 
 .profile-options-container button img {
