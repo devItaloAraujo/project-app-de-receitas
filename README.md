@@ -1,4 +1,5 @@
 # Projeto app de receitas
+![recipes](https://github.com/user-attachments/assets/0658c051-31d3-405e-be8f-ac45b179d7b4)
 
 # Contexto
 Este projeto trata-se  de uma aplicação front-end de receitas culinárias de comidas e bebidas, onde pode-se favoritar e compartilhar receitas. Existem páginas para seguir a receita, para mostrar as receitas favoritas e as concluídas armazenadas. Estados gerenciados com o createContext do React. Diversas rotas gerenciadas com react router dom. 
